@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+    <title><%=title%></title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <a class="navbar-brand" href="#">Abhishek's</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link <%=page=='authors'?'active':''%>" href="/">Authors <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link <%=page=='products'?'active':''%>" href="/product/list">Books</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="nav-item">
+                    <a href="/author/add" class="nav-link  <%=page=='add_authors'?'active':''%>">Add Author</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/product/add" class="nav-link  <%=page=='add_products'?'active':''%>">Add Book</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/product/add" class="nav-link  <%=page=='login'?'active':''%>">Login</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container-fluid" style="margin-top:3.5rem">
+        <div class="row">

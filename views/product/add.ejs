@@ -1,0 +1,53 @@
+<%-include('../layouts/header.ejs')%>
+<div class="col-md-2"></div>
+<div class="col-md-8">
+    <div class="row mt-4">
+        <div class="col-md-12 text-center">
+            <p class="m-3">Please enter book details to add new book</p>
+            <form action="/product/add" method="POST">
+                <div class="row">
+                    <div class="col">
+                        <input name="book_name" class="form-control" type="text" autocomplete="off"
+                            placeholder="Book name" required>
+                    </div>
+                    <div class="col">
+                        <div class="input-group">
+                            <select class="form-control" autocomplete="off" name="author" placeholder="Author">
+                                <%for(let author of authors) { %>
+                                <option value="<%=author.id%>"><%=author.name%></option>
+                                <%}%>
+                            </select>
+                            <div class="input-group-prepend">
+                                <a href="/author/add" target="_blank">
+                                    <span class="input-group-text">Add new</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col">
+                        <textarea name="desc" placeholder="Book description" rows="5" class="form-control"
+                            required></textarea>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col">
+                        <input name="price" class="form-control" type="number" autocomplete="off" placeholder="Price"
+                            required>
+                    </div>
+                    <div class="col">
+                        <input name="image_url" class="form-control" type="url" autocomplete="off"
+                            placeholder="Image url" required>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col text-center">
+                        <input type="submit" class="btn btn-primary" value="Save">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<%-include('../layouts/footer.ejs')%>

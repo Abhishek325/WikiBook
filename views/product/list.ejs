@@ -1,0 +1,100 @@
+<%-include("../layouts/header.ejs")%>
+<style>
+    .list-group-item:hover {
+        background: #dedede;
+        cursor: pointer;
+    }
+
+    .card:hover {
+        box-shadow: 0 2px 0 #dedede;
+    }
+
+    .card-link,
+    .delete-form {
+        visibility: hidden;
+    }
+
+    .card:hover .card-link,
+    .card:hover .delete-form {
+        visibility: visible;
+    }
+
+    .delete-form {
+        margin-left: 1rem;
+        display: inline;
+    }
+
+    .sidebar {
+        border-right: 1px solid #dedede;
+        overflow: auto;
+        padding: 0;
+        height: 90vh;
+        position: fixed;
+        width: 200px;
+    }
+
+    .card-columns {
+        column-count: 2;
+    }
+</style>
+<div class="sidebar">
+    <% if(products.length > 0) { %>
+    <ul class="list-group list-group-flush pt-1">
+        <% for(let product of products) { %>
+        <li class="list-group-item" style="font-size: 14px;"><%=product.name%></li>
+        <% }%>
+    </ul>
+    <% } else { %>
+    <p class="py-2 px-3">No books found</p>
+    <% } %>
+</div>
+<div class="col-md-2"></div>
+<div class="col-md-10">
+    <% if(products.length > 0 ) { %>
+    <div class="card-columns">
+        <% for(let product of products) { %>
+        <div class="card">
+            <div class="row no-gutters">
+                <div class="col-md-4">
+                    <img src="<%=product.imageUrl%>" class="card-img" alt="<%=product.name%>" style="height: 100%;">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title"><%=product.name%></h5>
+                        <h6 class="card-subtitle mt-1 mb-3 text-muted font-weight-light"><%=product.createdAt%></h6>
+                        <p class="card-text" style="font-size: 13px;"><%=product.description%></p>
+                        <div class="row">
+                            <div class="col-md-6 text-left">
+                                <span class="badge badge-success">
+                                    ₹ <%=product.price%>
+                                </span>
+                                <% if(product.rating) {  %>
+                                <span class="badge badge-<%=product.rating<3?'danger':'warning'%>">
+                                    <%=product.rating%> stars
+                                </span>
+                                <% } %>
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <a href="/product/edit/<%=product.id%>" class="card-link">Edit</a>
+                                <form action="/product/delete" class="delete-form" method="POST"
+                                    onsubmit="return confirm('Are you sure?')">
+                                    <input type="hidden" name="id" value="<%=product.id%>">
+                                    <input type="submit" class="text-danger" value="Delete"
+                                        style="background:none;padding:0;border:none">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% } %>
+    </div>
+    <% } else { %>
+    <div class="row mt-2 px-4">
+        <p class="text-grey">No books found. <br> <a href="/">Click here</a> to add a new book</p>
+    </div>
+    <% } %>
+</div>
+</div>
+<%-include("../layouts/footer.ejs")%>

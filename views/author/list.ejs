@@ -1,0 +1,62 @@
+<%-include("../layouts/header.ejs")%>
+<style>
+    .card-columns {
+        column-count:3;
+    }
+
+    .card:hover {
+        box-shadow: 0 2px 0 #dedede;
+    }
+
+    .card-link,
+    .delete-form {
+        visibility: hidden;
+    }
+
+    .card:hover .card-link,
+    .card:hover .delete-form {
+        visibility: visible;
+    }
+
+    .delete-form {
+        margin-left: 1rem;
+        display: inline;
+    }
+</style>
+<div class="col-md-12">
+    <% if(authors.length > 0 ) { %>
+    <div class="card-columns">
+        <%for(let author of authors) { %>
+        <div class="card">
+            <div class="row no-gutters">
+                <div class="col-md-5">
+                    <img src="<%=author.imageUrl%>" class="card-img" alt="<%=author.name%>" style="height: 100%;">
+                </div>
+                <div class="col-md-7">
+                    <div class="card-body">
+                        <h5 class="card-title"><%=author.name%></h5>
+                        <p class="card-text" style="font-size: 13px;"><%=author.description%></p>
+                        <div class="row">
+                            <div class="col-md-12 text-left">
+                                <a href="/author/edit/<%=author.id%>" class="card-link">Edit</a>
+                                <form action="/author/delete" class="delete-form" method="POST"
+                                    onsubmit="return confirm('Are you sure?')">
+                                    <input type="hidden" name="id" value="<%=author.id%>">
+                                    <input type="submit" class="text-danger" value="Remove"
+                                        style="background:none;padding:0;border:none">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% } %>
+    </div>
+    <% } else { %>
+    <div class="row mt-2 px-4">
+        <p class="text-grey">No authors found. <br> <a href="/author/add">Click here</a> to add a author</p>
+    </div>
+    <% } %>
+</div>
+<%-include("../layouts/footer.ejs")%>
