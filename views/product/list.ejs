@@ -63,7 +63,7 @@
                         <h5 class="card-title"><%=product.name%></h5>
                         <h6 class="card-subtitle mt-1 mb-3 text-muted font-weight-light"><%=product.createdAt%></h6>
                         <p class="card-text" style="font-size: 13px;"><%=product.description%></p>
-                        <div class="row">
+                        <div class="row" style="position: absolute;bottom: 0.75rem;width:100%">
                             <div class="col-md-6 text-left">
                                 <span class="badge badge-success">
                                     ₹ <%=product.price%>
@@ -92,7 +92,7 @@
     </div>
     <% } else { %>
     <div class="row mt-2 px-4">
-        <p class="text-grey">No books found. <br> <a href="/">Click here</a> to add a new book</p>
+        <p class="text-grey">No books found. <br> <a href="/product/add">Click here</a> to add a new book</p>
     </div>
     <% } %>
 </div>

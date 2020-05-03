@@ -1,0 +1,23 @@
+<%-include("./layouts/header.ejs")%>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 mx-auto p-4">
+            <form action="/login" method="post">
+                <p>Please login to continue</p>
+                <div class="row">
+                    <div class="col-md-12">
+                        <input placeholder="Email" type="email" name="email" class="form-control" required>
+                    </div>
+                    <div class="col-md-12 mt-3">
+                        <input placeholder="Password" type="password" name="password" class="form-control" required>
+                    </div>
+                    <div class="col-md-12 text-center mt-3">
+                        <button type="submit" class="btn btn-primary">Login</button>
+                        <button type="reset" class="btn btn-secondary">Clear</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<%-include("./layouts/footer.ejs")%>

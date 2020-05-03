@@ -1,27 +1,45 @@
 <%-include("../layouts/header.ejs")%>
+<style>
+    label {
+        color: #777;
+        font-size: 13px;
+    }
+</style>
 <div class="col-md-2"></div>
 <div class="col-md-8">
     <h3 class="text-center pt-4">Edit the book details</h3>
     <div class="row mt-4">
-        <div class="col-md-12 text-center">
-            <p class="m-3">Please udpate below fields:</p>
+        <div class="col-md-12">
+            <p class="m-3 text-center">Please udpate below fields:</p>
             <form action="/product/edit" method="POST">
                 <div class="row">
                     <div class="col">
+                        <label>Book name</label>
                         <input name="book_name" class="form-control" type="text" autocomplete="off"
                             placeholder="Book name" value="<%=product.name%>" required>
                     </div>
                     <div class="col">
+                        <label>Price</label>
                         <input name="price" class="form-control" type="number" autocomplete="off" placeholder="price"
                             value="<%=product.price%>" required>
                     </div>
                     <div class="col">
-                        <input name="rating" class="form-control" type="number" autocomplete="off" placeholder="Rating out of 5"
-                            value="<%=product.rating%>" min="0" max="5" required>
+                        <label>Rating</label>
+                        <input name="rating" class="form-control" type="number" autocomplete="off"
+                            placeholder="Rating out of 5" value="<%=product.rating%>" min="0" max="5">
+                    </div>
+                    <div class="col">
+                        <label>Author</label>
+                        <select class="form-control" autocomplete="off" name="authorId" placeholder="Author">
+                            <%for(let author of authors) { %>
+                            <option value="<%=author.id%>" <%=(product.authorId==author.id)?"selected":""%>><%=author.name%></option>
+                            <%}%>
+                        </select>
                     </div>
                 </div>
-                <div class="row mt-2">
+                <div class="row mt-3">
                     <div class="col">
+                        <label>Book description</label>
                         <textarea name="desc" placeholder="Book description" rows="5" class="form-control"
                             required><%=product.description%></textarea>
                     </div>

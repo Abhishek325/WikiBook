@@ -10,6 +10,7 @@ exports.getProductList = (req, res, next) => {
         products: result,
         page: "products",
         title: "Product list",
+        isLoggedIn: req.session.isLoggedIn,
       });
     })
     .catch((err) => {
@@ -24,6 +25,7 @@ exports.getAddProduct = (req, res, next) => {
       authors: authorResult,
       page: "add_products",
       title: "Add new product",
+      isLoggedIn: req.session.isLoggedIn,
     });
   });
 };
@@ -32,11 +34,13 @@ exports.postAddProduct = (req, res, next) => {
   const price = req.body.price;
   const description = req.body.desc;
   const imageUrl = req.body.image_url;
+  const authorId = req.body.author;
   Product.create({
     name: name,
     price: price,
     description: description,
     imageUrl: imageUrl,
+    authorId: authorId,
   })
     .then(() => {
       res.redirect("/product/list");
@@ -55,10 +59,14 @@ exports.getEditProduct = (req, res, next) => {
     },
   })
     .then((result) => {
-      res.render(path.join(__dirname, "..", "views", "product", "edit"), {
-        product: result,
-        page: null,
-        title: "Edit - " + result.name,
+      Author.findAll().then((authorResult) => {
+        res.render(path.join(__dirname, "..", "views", "product", "edit"), {
+          product: result,
+          authors: authorResult,
+          page: null,
+          title: "Edit - " + result.name,
+          isLoggedIn: req.session.isLoggedIn,
+        });
       });
     })
     .catch((err) => {
@@ -69,8 +77,9 @@ exports.postEditProduct = (req, res, next) => {
   const id = req.body.id;
   const name = req.body.book_name;
   const price = req.body.price;
-  const rating = req.body.rating;
+  const rating = req.body.rating || null;
   const description = req.body.desc;
+  const author = req.body.author;
   Product.findOne({
     where: {
       id: id,
@@ -81,6 +90,7 @@ exports.postEditProduct = (req, res, next) => {
       product.price = price;
       product.rating = rating;
       product.description = description;
+      product.authorId = author;
       product.save();
     })
     .then(() => {

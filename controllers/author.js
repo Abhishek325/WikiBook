@@ -1,6 +1,7 @@
 const path = require("path");
 
 const Author = require("../models/author.model");
+const Product = require("../models/product.model");
 
 exports.getAuthorList = (req, res, next) => {
   Author.findAll()
@@ -9,6 +10,7 @@ exports.getAuthorList = (req, res, next) => {
         authors: result,
         page: "authors",
         title: "Authors",
+        isLoggedIn: req.session.isLoggedIn,
       });
     })
     .catch((err) => {
@@ -21,6 +23,7 @@ exports.getAddAuthor = (req, res, next) => {
   res.render(path.join(__dirname, "..", "views", "author", "add.ejs"), {
     page: "add_authors",
     title: "Add new author",
+    isLoggedIn: req.session.isLoggedIn,
   });
 };
 exports.postAddAuthor = (req, res, next) => {
@@ -52,6 +55,7 @@ exports.getEditAuthor = (req, res, next) => {
       author: result,
       title: "Edit - " + result.name,
       page: null,
+      isLoggedIn: req.session.isLoggedIn,
     });
   });
 };
@@ -80,6 +84,7 @@ exports.postEditAuthor = (req, res, next) => {
     });
 };
 
+//Delete author
 exports.deleteAuthor = (req, res, next) => {
   const id = req.body.id;
   Author.destroy({
@@ -89,6 +94,27 @@ exports.deleteAuthor = (req, res, next) => {
   })
     .then(() => {
       res.redirect("/author/list");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+//Get books for author:
+exports.getBooksForAuthor = (req, res, next) => {
+  const authorId = req.params.id;
+  Product.findAll({
+    where: {
+      authorId: authorId,
+    },
+  })
+    .then((result) => {
+      res.render(path.join(__dirname, "..", "views", "product", "list.ejs"), {
+        products: result,
+        page: "products",
+        title: "Product list",
+        isLoggedIn: req.session.isLoggedIn,
+      });
     })
     .catch((err) => {
       console.log(err);

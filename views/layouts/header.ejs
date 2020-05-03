@@ -10,7 +10,7 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-        <a class="navbar-brand" href="#">Abhishek's</a>
+        <a class="navbar-brand" href="#">WikiBook</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -18,22 +18,31 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link <%=page=='authors'?'active':''%>" href="/">Authors <span class="sr-only">(current)</span></a>
+                    <a class="nav-link <%=page=='authors'?'active':''%>" href="/">Authors <span
+                            class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link <%=page=='products'?'active':''%>" href="/product/list">Books</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
+                <%if(isLoggedIn!=undefined) {%>
                 <li class="nav-item">
                     <a href="/author/add" class="nav-link  <%=page=='add_authors'?'active':''%>">Add Author</a>
                 </li>
                 <li class="nav-item">
                     <a href="/product/add" class="nav-link  <%=page=='add_products'?'active':''%>">Add Book</a>
                 </li>
-                <li class="nav-item">
-                    <a href="/product/add" class="nav-link  <%=page=='login'?'active':''%>">Login</a>
+                <li class="nav-item ml-2">
+                    <form action="/logout" method="post" onsubmit="return confirm('Are you sure ? ')">
+                        <button class="btn btn-sm btn-primary" type="submit" style="margin-top: 0.25rem;font-size: 12px;">Logout</button>
+                    </form>
                 </li>
+                <% } else { %>
+                <li class="nav-item">
+                    <a href="/login" class="nav-link  <%=page=='login'?'active':''%>">Login</a>
+                </li>
+                <% } %>
             </ul>
         </div>
     </nav>
